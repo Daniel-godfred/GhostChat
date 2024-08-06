@@ -8,11 +8,13 @@ import {
   TextInput,
   ReferenceInput,
   SelectInput,
-  PasswordInput,
+  ReferenceArrayInput,
   SelectArrayInput,
+  PasswordInput,
 } from "react-admin";
 
 import { InterestTitle } from "../interest/InterestTitle";
+import { NotificationTitle } from "../notification/NotificationTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserEdit = (props: EditProps): React.ReactElement => {
@@ -32,6 +34,14 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         </ReferenceInput>
         <TextInput label="Last Name" source="lastName" />
         <TextInput label="location" source="location" />
+        <ReferenceArrayInput
+          source="notifications"
+          reference="Notification"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={NotificationTitle} />
+        </ReferenceArrayInput>
         <PasswordInput label="Password" source="password" />
         <NumberInput
           step={1}

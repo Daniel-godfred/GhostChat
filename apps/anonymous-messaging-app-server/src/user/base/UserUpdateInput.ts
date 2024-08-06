@@ -23,6 +23,7 @@ import {
 } from "class-validator";
 import { InterestWhereUniqueInput } from "../../interest/base/InterestWhereUniqueInput";
 import { Type } from "class-transformer";
+import { NotificationUpdateManyWithoutUsersInput } from "./NotificationUpdateManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -114,6 +115,18 @@ class UserUpdateInput {
     nullable: true,
   })
   location?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => NotificationUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => NotificationUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => NotificationUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  notifications?: NotificationUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

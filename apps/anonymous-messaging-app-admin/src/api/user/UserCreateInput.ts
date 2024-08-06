@@ -1,4 +1,5 @@
 import { InterestWhereUniqueInput } from "../interest/InterestWhereUniqueInput";
+import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
 
 export type UserCreateInput = {
@@ -9,6 +10,7 @@ export type UserCreateInput = {
   interest?: InterestWhereUniqueInput | null;
   lastName?: string | null;
   location?: string | null;
+  notifications?: NotificationCreateNestedManyWithoutUsersInput;
   password: string;
   radiusPreference?: number | null;
   roles: InputJsonValue;

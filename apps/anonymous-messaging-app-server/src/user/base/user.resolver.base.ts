@@ -20,6 +20,8 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
+import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
+import { Notification } from "../../notification/base/Notification";
 import { Interest } from "../../interest/base/Interest";
 import { UserService } from "../user.service";
 @graphql.Resolver(() => User)
@@ -102,6 +104,20 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Notification], { name: "notifications" })
+  async findNotifications(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: NotificationFindManyArgs
+  ): Promise<Notification[]> {
+    const results = await this.service.findNotifications(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @graphql.ResolveField(() => Interest, {

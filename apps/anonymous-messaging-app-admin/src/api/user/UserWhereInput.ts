@@ -2,6 +2,7 @@ import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { InterestWhereUniqueInput } from "../interest/InterestWhereUniqueInput";
+import { NotificationListRelationFilter } from "../notification/NotificationListRelationFilter";
 
 export type UserWhereInput = {
   age?: IntNullableFilter;
@@ -12,6 +13,7 @@ export type UserWhereInput = {
   interest?: InterestWhereUniqueInput;
   lastName?: StringNullableFilter;
   location?: StringNullableFilter;
+  notifications?: NotificationListRelationFilter;
   radiusPreference?: IntNullableFilter;
   status?: "Option1";
   username?: StringFilter;

@@ -26,6 +26,7 @@ import {
 
 import { Type } from "class-transformer";
 import { Interest } from "../../interest/base/Interest";
+import { Notification } from "../../notification/base/Notification";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
@@ -130,6 +131,15 @@ class User {
     nullable: true,
   })
   location!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Notification],
+  })
+  @ValidateNested()
+  @Type(() => Notification)
+  @IsOptional()
+  notifications?: Array<Notification>;
 
   @ApiProperty({
     required: false,

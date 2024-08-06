@@ -1,1 +1,5 @@
-export type MessageUpdateInput = {};
+export type MessageUpdateInput = {
+  content?: string | null;
+  receiver?: string | null;
+  sender?: string | null;
+};

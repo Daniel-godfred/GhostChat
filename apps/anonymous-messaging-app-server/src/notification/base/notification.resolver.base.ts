@@ -17,7 +17,10 @@ import { Notification } from "./Notification";
 import { NotificationCountArgs } from "./NotificationCountArgs";
 import { NotificationFindManyArgs } from "./NotificationFindManyArgs";
 import { NotificationFindUniqueArgs } from "./NotificationFindUniqueArgs";
+import { CreateNotificationArgs } from "./CreateNotificationArgs";
+import { UpdateNotificationArgs } from "./UpdateNotificationArgs";
 import { DeleteNotificationArgs } from "./DeleteNotificationArgs";
+import { User } from "../../user/base/User";
 import { NotificationService } from "../notification.service";
 @graphql.Resolver(() => Notification)
 export class NotificationResolverBase {
@@ -51,6 +54,51 @@ export class NotificationResolverBase {
   }
 
   @graphql.Mutation(() => Notification)
+  async createNotification(
+    @graphql.Args() args: CreateNotificationArgs
+  ): Promise<Notification> {
+    return await this.service.createNotification({
+      ...args,
+      data: {
+        ...args.data,
+
+        user: args.data.user
+          ? {
+              connect: args.data.user,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @graphql.Mutation(() => Notification)
+  async updateNotification(
+    @graphql.Args() args: UpdateNotificationArgs
+  ): Promise<Notification | null> {
+    try {
+      return await this.service.updateNotification({
+        ...args,
+        data: {
+          ...args.data,
+
+          user: args.data.user
+            ? {
+                connect: args.data.user,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
+  @graphql.Mutation(() => Notification)
   async deleteNotification(
     @graphql.Args() args: DeleteNotificationArgs
   ): Promise<Notification | null> {
@@ -64,5 +112,18 @@ export class NotificationResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => User, {
+    nullable: true,
+    name: "user",
+  })
+  async getUser(@graphql.Parent() parent: Notification): Promise<User | null> {
+    const result = await this.service.getUser(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

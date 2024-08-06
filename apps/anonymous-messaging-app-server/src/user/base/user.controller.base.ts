@@ -22,6 +22,9 @@ import { User } from "./User";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserUpdateInput } from "./UserUpdateInput";
+import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
+import { Notification } from "../../notification/base/Notification";
+import { NotificationWhereUniqueInput } from "../../notification/base/NotificationWhereUniqueInput";
 
 export class UserControllerBase {
   constructor(protected readonly service: UserService) {}
@@ -226,5 +229,87 @@ export class UserControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/notifications")
+  @ApiNestedQuery(NotificationFindManyArgs)
+  async findNotifications(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Notification[]> {
+    const query = plainToClass(NotificationFindManyArgs, request.query);
+    const results = await this.service.findNotifications(params.id, {
+      ...query,
+      select: {
+        content: true,
+        createdAt: true,
+        id: true,
+        typeField: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/notifications")
+  async connectNotifications(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: NotificationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      notifications: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/notifications")
+  async updateNotifications(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: NotificationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      notifications: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/notifications")
+  async disconnectNotifications(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: NotificationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      notifications: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

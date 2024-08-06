@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
-import { NotificationModule } from "./notification/notification.module";
 import { InterestModule } from "./interest/interest.module";
 import { MessageModule } from "./message/message.module";
+import { NotificationModule } from "./notification/notification.module";
 import { UserModule } from "./user/user.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -15,9 +15,9 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
-    NotificationModule,
     InterestModule,
     MessageModule,
+    NotificationModule,
     UserModule,
     HealthModule,
     PrismaModule,

@@ -31,11 +31,27 @@ export class NotificationControllerBase {
     @common.Body() data: NotificationCreateInput
   ): Promise<Notification> {
     return await this.service.createNotification({
-      data: data,
+      data: {
+        ...data,
+
+        user: data.user
+          ? {
+              connect: data.user,
+            }
+          : undefined,
+      },
       select: {
+        content: true,
         createdAt: true,
         id: true,
+        typeField: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -48,9 +64,17 @@ export class NotificationControllerBase {
     return this.service.notifications({
       ...args,
       select: {
+        content: true,
         createdAt: true,
         id: true,
+        typeField: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -64,9 +88,17 @@ export class NotificationControllerBase {
     const result = await this.service.notification({
       where: params,
       select: {
+        content: true,
         createdAt: true,
         id: true,
+        typeField: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -87,11 +119,27 @@ export class NotificationControllerBase {
     try {
       return await this.service.updateNotification({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          user: data.user
+            ? {
+                connect: data.user,
+              }
+            : undefined,
+        },
         select: {
+          content: true,
           createdAt: true,
           id: true,
+          typeField: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -114,9 +162,17 @@ export class NotificationControllerBase {
       return await this.service.deleteNotification({
         where: params,
         select: {
+          content: true,
           createdAt: true,
           id: true,
+          typeField: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
