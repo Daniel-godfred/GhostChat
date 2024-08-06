@@ -1,17 +1,21 @@
 import * as React from "react";
+
 import {
   Create,
   SimpleForm,
   CreateProps,
+  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
+
 import { UserTitle } from "../user/UserTitle";
 
 export const InterestCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput label="name" source="name" />
         <ReferenceArrayInput
           source="users"
           reference="User"

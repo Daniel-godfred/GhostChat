@@ -38,6 +38,7 @@ export class InterestControllerBase {
       select: {
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -53,6 +54,7 @@ export class InterestControllerBase {
       select: {
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -69,6 +71,7 @@ export class InterestControllerBase {
       select: {
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -94,6 +97,7 @@ export class InterestControllerBase {
         select: {
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -119,6 +123,7 @@ export class InterestControllerBase {
         select: {
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });

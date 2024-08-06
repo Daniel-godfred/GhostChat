@@ -23,6 +23,7 @@ import {
 } from "class-validator";
 import { InterestWhereUniqueInput } from "../../interest/base/InterestWhereUniqueInput";
 import { Type } from "class-transformer";
+import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -114,6 +115,18 @@ class UserCreateInput {
     nullable: true,
   })
   location?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => NotificationCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => NotificationCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => NotificationCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  notifications?: NotificationCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,

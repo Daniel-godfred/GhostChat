@@ -1,4 +1,5 @@
 import { Interest } from "../interest/Interest";
+import { Notification } from "../notification/Notification";
 import { JsonValue } from "type-fest";
 
 export type User = {
@@ -11,6 +12,7 @@ export type User = {
   interest?: Interest | null;
   lastName: string | null;
   location: string | null;
+  notifications?: Array<Notification>;
   radiusPreference: number | null;
   roles: JsonValue;
   status?: "Option1" | null;

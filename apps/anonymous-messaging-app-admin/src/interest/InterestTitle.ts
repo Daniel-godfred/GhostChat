@@ -1,7 +1,7 @@
 import { Interest as TInterest } from "../api/interest/Interest";
 
-export const INTEREST_TITLE_FIELD = "id";
+export const INTEREST_TITLE_FIELD = "name";
 
 export const InterestTitle = (record: TInterest): string => {
-  return record.id?.toString() || String(record.id);
+  return record.name?.toString() || String(record.id);
 };

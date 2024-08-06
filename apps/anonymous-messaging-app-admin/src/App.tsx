@@ -5,10 +5,6 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { NotificationList } from "./notification/NotificationList";
-import { NotificationCreate } from "./notification/NotificationCreate";
-import { NotificationEdit } from "./notification/NotificationEdit";
-import { NotificationShow } from "./notification/NotificationShow";
 import { InterestList } from "./interest/InterestList";
 import { InterestCreate } from "./interest/InterestCreate";
 import { InterestEdit } from "./interest/InterestEdit";
@@ -17,6 +13,10 @@ import { MessageList } from "./message/MessageList";
 import { MessageCreate } from "./message/MessageCreate";
 import { MessageEdit } from "./message/MessageEdit";
 import { MessageShow } from "./message/MessageShow";
+import { NotificationList } from "./notification/NotificationList";
+import { NotificationCreate } from "./notification/NotificationCreate";
+import { NotificationEdit } from "./notification/NotificationEdit";
+import { NotificationShow } from "./notification/NotificationShow";
 import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
@@ -48,13 +48,6 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="Notification"
-          list={NotificationList}
-          edit={NotificationEdit}
-          create={NotificationCreate}
-          show={NotificationShow}
-        />
-        <Resource
           name="Interest"
           list={InterestList}
           edit={InterestEdit}
@@ -67,6 +60,13 @@ const App = (): React.ReactElement => {
           edit={MessageEdit}
           create={MessageCreate}
           show={MessageShow}
+        />
+        <Resource
+          name="Notification"
+          list={NotificationList}
+          edit={NotificationEdit}
+          create={NotificationCreate}
+          show={NotificationShow}
         />
         <Resource
           name="User"

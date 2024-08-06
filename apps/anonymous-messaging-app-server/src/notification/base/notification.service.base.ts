@@ -10,7 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Notification as PrismaNotification } from "@prisma/client";
+import {
+  Prisma,
+  Notification as PrismaNotification,
+  User as PrismaUser,
+} from "@prisma/client";
 
 export class NotificationServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +49,13 @@ export class NotificationServiceBase {
     args: Prisma.NotificationDeleteArgs
   ): Promise<PrismaNotification> {
     return this.prisma.notification.delete(args);
+  }
+
+  async getUser(parentId: string): Promise<PrismaUser | null> {
+    return this.prisma.notification
+      .findUnique({
+        where: { id: parentId },
+      })
+      .user();
   }
 }

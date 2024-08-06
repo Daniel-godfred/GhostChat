@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { InterestWhereUniqueInput } from "../../interest/base/InterestWhereUniqueInput";
+import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 import { EnumUserStatus } from "./EnumUserStatus";
 
 @InputType()
@@ -109,6 +110,18 @@ class UserWhereInput {
     nullable: true,
   })
   location?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => NotificationListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => NotificationListRelationFilter)
+  @IsOptional()
+  @Field(() => NotificationListRelationFilter, {
+    nullable: true,
+  })
+  notifications?: NotificationListRelationFilter;
 
   @ApiProperty({
     required: false,
