@@ -1,0 +1,50 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Notification {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Interest {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  users     User[]
+}
+
+model Message {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  age              Int?
+  agePreference    Int?
+  createdAt        DateTime        @default(now())
+  email            String?         @unique
+  firstName        String?
+  id               String          @id @default(cuid())
+  interest         Interest?       @relation(fields: [interestId], references: [id])
+  interestId       String?
+  lastName         String?
+  location         String?
+  password         String
+  radiusPreference Int?
+  roles            Json
+  status           EnumUserStatus?
+  updatedAt        DateTime        @updatedAt
+  username         String          @unique
+}
+
+enum EnumUserStatus {
+  Option1
+}
