@@ -1,6 +1,7 @@
 import { InterestWhereUniqueInput } from "../interest/InterestWhereUniqueInput";
 import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
+import { UserActionCreateNestedManyWithoutUsersInput } from "./UserActionCreateNestedManyWithoutUsersInput";
 
 export type UserCreateInput = {
   age?: number | null;
@@ -15,5 +16,6 @@ export type UserCreateInput = {
   radiusPreference?: number | null;
   roles: InputJsonValue;
   status?: "Option1" | null;
+  userActions?: UserActionCreateNestedManyWithoutUsersInput;
   username: string;
 };

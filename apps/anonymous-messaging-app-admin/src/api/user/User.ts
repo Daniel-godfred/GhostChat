@@ -1,6 +1,7 @@
 import { Interest } from "../interest/Interest";
 import { Notification } from "../notification/Notification";
 import { JsonValue } from "type-fest";
+import { UserAction } from "../userAction/UserAction";
 
 export type User = {
   age: number | null;
@@ -17,5 +18,6 @@ export type User = {
   roles: JsonValue;
   status?: "Option1" | null;
   updatedAt: Date;
+  userActions?: Array<UserAction>;
   username: string;
 };

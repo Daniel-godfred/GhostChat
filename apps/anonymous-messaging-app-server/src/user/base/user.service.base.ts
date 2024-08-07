@@ -15,6 +15,7 @@ import {
   Prisma,
   User as PrismaUser,
   Notification as PrismaNotification,
+  UserAction as PrismaUserAction,
   Interest as PrismaInterest,
 } from "@prisma/client";
 
@@ -50,6 +51,17 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .notifications(args);
+  }
+
+  async findUserActions(
+    parentId: string,
+    args: Prisma.UserActionFindManyArgs
+  ): Promise<PrismaUserAction[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .userActions(args);
   }
 
   async getInterest(parentId: string): Promise<PrismaInterest | null> {
