@@ -1,6 +1,7 @@
 import { InterestWhereUniqueInput } from "../interest/InterestWhereUniqueInput";
 import { NotificationUpdateManyWithoutUsersInput } from "./NotificationUpdateManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
+import { UserActionUpdateManyWithoutUsersInput } from "./UserActionUpdateManyWithoutUsersInput";
 
 export type UserUpdateInput = {
   age?: number | null;
@@ -15,5 +16,6 @@ export type UserUpdateInput = {
   radiusPreference?: number | null;
   roles?: InputJsonValue;
   status?: "Option1" | null;
+  userActions?: UserActionUpdateManyWithoutUsersInput;
   username?: string;
 };

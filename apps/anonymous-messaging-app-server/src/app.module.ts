@@ -3,6 +3,8 @@ import { InterestModule } from "./interest/interest.module";
 import { MessageModule } from "./message/message.module";
 import { NotificationModule } from "./notification/notification.module";
 import { UserModule } from "./user/user.module";
+import { UserActionModule } from "./userAction/userAction.module";
+import { AdminModule } from "./admin/admin.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -19,6 +21,8 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     MessageModule,
     NotificationModule,
     UserModule,
+    UserActionModule,
+    AdminModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

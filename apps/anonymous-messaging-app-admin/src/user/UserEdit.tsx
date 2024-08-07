@@ -15,6 +15,7 @@ import {
 
 import { InterestTitle } from "../interest/InterestTitle";
 import { NotificationTitle } from "../notification/NotificationTitle";
+import { UserActionTitle } from "../userAction/UserActionTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserEdit = (props: EditProps): React.ReactElement => {
@@ -62,6 +63,14 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           allowEmpty
           optionValue="value"
         />
+        <ReferenceArrayInput
+          source="userActions"
+          reference="UserAction"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={UserActionTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Username" source="username" />
       </SimpleForm>
     </Edit>

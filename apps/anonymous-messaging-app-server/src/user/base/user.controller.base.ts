@@ -25,6 +25,9 @@ import { UserUpdateInput } from "./UserUpdateInput";
 import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
 import { Notification } from "../../notification/base/Notification";
 import { NotificationWhereUniqueInput } from "../../notification/base/NotificationWhereUniqueInput";
+import { UserActionFindManyArgs } from "../../userAction/base/UserActionFindManyArgs";
+import { UserAction } from "../../userAction/base/UserAction";
+import { UserActionWhereUniqueInput } from "../../userAction/base/UserActionWhereUniqueInput";
 
 export class UserControllerBase {
   constructor(protected readonly service: UserService) {}
@@ -303,6 +306,94 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       notifications: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/userActions")
+  @ApiNestedQuery(UserActionFindManyArgs)
+  async findUserActions(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<UserAction[]> {
+    const query = plainToClass(UserActionFindManyArgs, request.query);
+    const results = await this.service.findUserActions(params.id, {
+      ...query,
+      select: {
+        action: true,
+        actionTimestamp: true,
+        actionType: true,
+        actor: true,
+        createdAt: true,
+        id: true,
+        target: true,
+        targetUser: true,
+        targetUserId: true,
+        timestamp: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/userActions")
+  async connectUserActions(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserActionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      userActions: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/userActions")
+  async updateUserActions(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserActionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      userActions: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/userActions")
+  async disconnectUserActions(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserActionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      userActions: {
         disconnect: body,
       },
     };

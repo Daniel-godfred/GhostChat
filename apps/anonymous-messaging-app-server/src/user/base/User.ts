@@ -31,6 +31,7 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { EnumUserStatus } from "./EnumUserStatus";
+import { UserAction } from "../../userAction/base/UserAction";
 
 @ObjectType()
 class User {
@@ -179,6 +180,15 @@ class User {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [UserAction],
+  })
+  @ValidateNested()
+  @Type(() => UserAction)
+  @IsOptional()
+  userActions?: Array<UserAction>;
 
   @ApiProperty({
     required: true,

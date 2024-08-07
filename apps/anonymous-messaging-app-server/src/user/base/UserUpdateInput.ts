@@ -28,6 +28,7 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { EnumUserStatus } from "./EnumUserStatus";
+import { UserActionUpdateManyWithoutUsersInput } from "./UserActionUpdateManyWithoutUsersInput";
 
 @InputType()
 class UserUpdateInput {
@@ -172,6 +173,18 @@ class UserUpdateInput {
     nullable: true,
   })
   status?: "Option1" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserActionUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UserActionUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UserActionUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  userActions?: UserActionUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

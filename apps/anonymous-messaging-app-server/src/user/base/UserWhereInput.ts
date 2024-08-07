@@ -19,6 +19,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { InterestWhereUniqueInput } from "../../interest/base/InterestWhereUniqueInput";
 import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 import { EnumUserStatus } from "./EnumUserStatus";
+import { UserActionListRelationFilter } from "../../userAction/base/UserActionListRelationFilter";
 
 @InputType()
 class UserWhereInput {
@@ -144,6 +145,18 @@ class UserWhereInput {
     nullable: true,
   })
   status?: "Option1";
+
+  @ApiProperty({
+    required: false,
+    type: () => UserActionListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => UserActionListRelationFilter)
+  @IsOptional()
+  @Field(() => UserActionListRelationFilter, {
+    nullable: true,
+  })
+  userActions?: UserActionListRelationFilter;
 
   @ApiProperty({
     required: false,
